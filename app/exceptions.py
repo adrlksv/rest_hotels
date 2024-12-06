@@ -1,31 +1,63 @@
 from fastapi import HTTPException, status
 
 
-UserAlreadyExistsException = HTTPException(
-    status_code=status.HTTP_409_CONFLICT,
-    detail="User already exists",
-)
+class BookingException(HTTPException):
+    status_code = 500
+    detail = ""
 
-IncorrectEmailOrPasswordException = HTTPException(
-    status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Incorrect email or password",
-)
+    def __init__(self):
+        super().__init__(status_code=self.status_code, detail=self.detail)
 
-TokenExpiredException = HTTPException(
-    status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="The token has expired",
-)
+class UserAlreadyExistsException(BookingException):
+    status_code = status.HTTP_409_CONFLICT
+    detail = "User already exists"
 
-TokenAbsentException = HTTPException(
-    status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="The token is missing",
-)
+class IncorrectEmailOrPasswordException(BookingException):
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = "Incorrect email or password"
 
-IncorrectTokenFormatException = HTTPException(
-    status_code=status.HTTP_401_UNAUTHORIZED,
-    detail="Incorret token format",
-)
+class TokenExpiredException(BookingException):
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = "The token has expired"
 
-UserIsNotPresentException = HTTPException(
-    status_code=status.HTTP_401_UNAUTHORIZED,
-)
+class TokenAbsentException(BookingException):
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = "The token is missing"
+
+class IncorrectTokenFormatException(BookingException):
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = "Incorrect token format"
+
+class UserIsNotPresentException(BookingException):
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = ""
+
+
+# UserAlreadyExistsException = HTTPException(
+#     status_code=status.HTTP_409_CONFLICT,
+#     detail="User already exists",
+# )
+
+# IncorrectEmailOrPasswordException = HTTPException(
+#     status_code=status.HTTP_401_UNAUTHORIZED,
+#     detail="Incorrect email or password",
+# )
+
+# TokenExpiredException = HTTPException(
+#     status_code=status.HTTP_401_UNAUTHORIZED,
+#     detail="The token has expired",
+# )
+
+# TokenAbsentException = HTTPException(
+#     status_code=status.HTTP_401_UNAUTHORIZED,
+#     detail="The token is missing",
+# )
+
+# IncorrectTokenFormatException = HTTPException(
+#     status_code=status.HTTP_401_UNAUTHORIZED,
+#     detail="Incorret token format",
+# )
+
+# UserIsNotPresentException = HTTPException(
+#     status_code=status.HTTP_401_UNAUTHORIZED,
+# )
