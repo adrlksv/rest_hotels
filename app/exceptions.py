@@ -32,6 +32,10 @@ class UserIsNotPresentException(BookingException):
     status_code = status.HTTP_401_UNAUTHORIZED
     detail = ""
 
+class RoomCannotBeBooked(BookingException):
+    status_code=status.HTTP_409_CONFLICT
+    detail="Room can not be booked"
+
 
 # UserAlreadyExistsException = HTTPException(
 #     status_code=status.HTTP_409_CONFLICT,
