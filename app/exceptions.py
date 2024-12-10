@@ -36,6 +36,14 @@ class RoomCannotBeBooked(BookingException):
     status_code=status.HTTP_409_CONFLICT
     detail="Room can not be booked"
 
+class HotelNotFound(BookingException):
+    status_code=status.HTTP_409_CONFLICT
+    detail="Hotels not found"
+
+class BookingDeleteError(BookingException):
+    status_code=status.HTTP_409_CONFLICT
+    detail="Booking delete error"
+
 
 # UserAlreadyExistsException = HTTPException(
 #     status_code=status.HTTP_409_CONFLICT,

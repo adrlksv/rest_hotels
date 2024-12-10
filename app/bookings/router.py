@@ -4,7 +4,8 @@ from app.bookings.dao import BookingDAO
 from app.bookings.schemas import SBooking
 from app.users.models import User
 from app.users.dependencies import get_current_user
-from app.exceptions import RoomCannotBeBooked
+from app.exceptions import RoomCannotBeBooked, BookingDeleteError
+from app.bookings.models import Bookings
 
 from datetime import date
 
@@ -30,3 +31,13 @@ async def add_booking(
     booking = await BookingDAO.add(user.id, room_id, date_from, date_to)
     if not booking:
         raise RoomCannotBeBooked
+
+
+@router.delete("/{booking_id}")
+async def delete_booking(
+    booking_id: int,
+    user: User = Depends(get_current_user)
+):
+    booking = await BookingDAO.delete(user.id, booking_id)
+    if not booking:
+        raise BookingDeleteError
