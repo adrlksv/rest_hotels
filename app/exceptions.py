@@ -36,40 +36,22 @@ class RoomCannotBeBooked(BookingException):
     status_code=status.HTTP_409_CONFLICT
     detail="Room can not be booked"
 
-class HotelNotFound(BookingException):
-    status_code=status.HTTP_409_CONFLICT
-    detail="Hotels not found"
-
 class BookingDeleteError(BookingException):
     status_code=status.HTTP_409_CONFLICT
     detail="Booking delete error"
 
+class DateFromCannotBeAfterDateTo(BookingException):
+    status_code=status.HTTP_400_BAD_REQUEST
+    detail="Дата заезда не может быть позже даты выезда"
 
-# UserAlreadyExistsException = HTTPException(
-#     status_code=status.HTTP_409_CONFLICT,
-#     detail="User already exists",
-# )
+class CannotBookHotelForLongPeriod(BookingException):
+    status_code=status.HTTP_400_BAD_REQUEST
+    detail="Невозможно забронировать отель сроком более месяца"
 
-# IncorrectEmailOrPasswordException = HTTPException(
-#     status_code=status.HTTP_401_UNAUTHORIZED,
-#     detail="Incorrect email or password",
-# )
+class CannotAddDataToDatabase(BookingException):
+    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
+    detail="Не удалось добавить запись"
 
-# TokenExpiredException = HTTPException(
-#     status_code=status.HTTP_401_UNAUTHORIZED,
-#     detail="The token has expired",
-# )
-
-# TokenAbsentException = HTTPException(
-#     status_code=status.HTTP_401_UNAUTHORIZED,
-#     detail="The token is missing",
-# )
-
-# IncorrectTokenFormatException = HTTPException(
-#     status_code=status.HTTP_401_UNAUTHORIZED,
-#     detail="Incorret token format",
-# )
-
-# UserIsNotPresentException = HTTPException(
-#     status_code=status.HTTP_401_UNAUTHORIZED,
-# )
+class CannotProcessCSV(BookingException):
+    status_code=status.HTTP_500_INTERNAL_SERVER_ERROR
+    detail="Не удалось обработать CSV файл"
