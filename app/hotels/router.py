@@ -29,9 +29,6 @@ async def get_hotels_by_location_and_time(
     return hotels
 
 
-
-
-
 @router.get("")
 async def get_hotel_by_id(
     hotel_id: int,
