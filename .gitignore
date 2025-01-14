@@ -7,3 +7,4 @@ app/hotels/__pycache__/
 app/migrations/__pycache__/
 app/rooms/__pycache__/
 app/users/__pycache__/
+app/pages/__pycache__/

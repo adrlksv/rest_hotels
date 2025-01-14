@@ -5,7 +5,6 @@ from app.bookings.schemas import SBooking
 from app.users.models import User
 from app.users.dependencies import get_current_user
 from app.exceptions import RoomCannotBeBooked, BookingDeleteError
-from app.bookings.models import Bookings
 
 from datetime import date
 
