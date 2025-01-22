@@ -2,6 +2,14 @@ from app.tasks.celery import celery
 from PIL import Image
 from pathlib import Path
 
+from pydantic import EmailStr
+
+from app.tasks.email_templates import create_booking_confirmation_template
+
+from app.config import SMTP_USER, SMTP_HOST, SMTP_PORT, SMTP_PASS
+
+import smtplib
+
 
 @celery.task
 def process_pic(
@@ -14,3 +22,15 @@ def process_pic(
     im_resized_1000_500.save(f"app/static/images/resized_1000_500_{im_path.name}")
     im_resized_200_100.save(f"app/static/images/im_resized_200_100_{im_path.name}")
     
+
+@celery.task
+def send_booking_confirmation_email(
+    booking: dict,
+    email_to_mock: EmailStr,
+):
+    email_to_mock = SMTP_USER
+    msg_content = create_booking_confirmation_template(booking, email_to_mock)
+
+    with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT) as server:
+        server.login(SMTP_USER, SMTP_PASS)
+        server.send_message(msg_content)

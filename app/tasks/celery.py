@@ -1,10 +1,10 @@
 from celery import Celery
 
-from app.config import REDIS_URL
+from app.config import REDIS_HOST, REDIS_PORT
 
 
 celery = Celery(
     "tasks",
-    broker=REDIS_URL,
+    broker=f"redis://{REDIS_HOST}:{REDIS_PORT}",
     include=["app.tasks.tasks"]
 )

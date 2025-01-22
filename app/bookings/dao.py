@@ -39,8 +39,8 @@ class BookingDAO(BaseDAO):
                         and_(
                             Bookings.date_from <= date_from,
                             Bookings.date_to > date_from
-                        )
-                    )
+                        ),
+                    ),
                 )
             ).cte("booked_rooms")
             """
