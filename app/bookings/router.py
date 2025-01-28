@@ -1,14 +1,13 @@
-from fastapi import APIRouter, Depends
-from app.bookings.dao import BookingDAO
-
-from app.bookings.schemas import SBooking
-from app.users.models import User
-from app.users.dependencies import get_current_user
-from app.exceptions import BookingDeleteError
-from app.tasks.tasks import send_booking_confirmation_email
-
 from datetime import date
 
+from fastapi import APIRouter, Depends
+
+from app.bookings.dao import BookingDAO
+from app.bookings.schemas import SBooking
+from app.exceptions import BookingDeleteError
+from app.tasks.tasks import send_booking_confirmation_email
+from app.users.dependencies import get_current_user
+from app.users.models import User
 
 router = APIRouter(
     prefix="/bookings",
@@ -41,7 +40,7 @@ async def add_booking(
         send_booking_confirmation_email.delay(booking_dict, user.email)
 
         return booking_dict
-    
+
     else:
         return {
             "message": "None"

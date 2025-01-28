@@ -1,12 +1,11 @@
-from fastapi import Query
-
-from app.hotels.router import router
-from app.hotels.rooms.dao import RoomDAO
-from app.hotels.rooms.schemas import SRoomInfo
-
+from datetime import date, datetime, timedelta
 from typing import List
 
-from datetime import date, datetime, timedelta
+from fastapi import Query
+
+from app.hotels.rooms.dao import RoomDAO
+from app.hotels.rooms.schemas import SRoomInfo
+from app.hotels.router import router
 
 
 @router.get("/{hotel_id}/rooms")
