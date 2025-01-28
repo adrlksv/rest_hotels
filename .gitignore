@@ -12,3 +12,5 @@ app/images/__pycache__/
 app/pages/__pycache__/
 app/tasks/__pycache__/
 app/admin/__pycache__/
+app/tests/__pycache__/
+app/tests/unit_tests/__pycache__/

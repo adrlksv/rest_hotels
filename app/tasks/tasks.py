@@ -6,7 +6,7 @@ from pydantic import EmailStr
 
 from app.tasks.email_templates import create_booking_confirmation_template
 
-from app.config import SMTP_USER, SMTP_HOST, SMTP_PORT, SMTP_PASS
+from app.config import settings
 
 import smtplib
 
@@ -28,9 +28,9 @@ def send_booking_confirmation_email(
     booking: dict,
     email_to_mock: EmailStr,
 ):
-    email_to_mock = SMTP_USER
+    email_to_mock = settings.SMTP_USER
     msg_content = create_booking_confirmation_template(booking, email_to_mock)
 
-    with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT) as server:
-        server.login(SMTP_USER, SMTP_PASS)
+    with smtplib.SMTP_SSL(settings.SMTP_HOST, settings.SMTP_PORT) as server:
+        server.login(settings.SMTP_USER, settings.SMTP_PASS)
         server.send_message(msg_content)

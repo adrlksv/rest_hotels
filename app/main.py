@@ -16,7 +16,7 @@ from app.admin.auth import authentication_backend
 from app.pages.router import router as page_router
 from app.images.router import router as image_router
 
-from app.config import REDIS_PORT, REDIS_HOST
+from app.config import settings
 
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
@@ -28,7 +28,7 @@ from sqladmin import Admin
 
 @asynccontextmanager
 async def lifespan(_: FastAPI) -> AsyncIterator[None]:
-    redis = aioredis.from_url(f"redis://{REDIS_HOST}:{REDIS_PORT}")
+    redis = aioredis.from_url(f"redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}")
     FastAPICache.init(RedisBackend(redis), prefix="cache")
     yield
 
