@@ -7,10 +7,14 @@ services:
       - .env-non-dev
     ports:
       - 5432:5432
+    networks:
+      - my_network
     
   redis:
     image: redis:7
     container_name: booking_redis
+    networks:
+      - my_network
 
   booking:
     image: booking_image
@@ -25,6 +29,8 @@ services:
     command: ["/booking/docker/app.sh"]
     ports:
       - 7777:8000
+    networks:
+      - my_network
   
   celery:
     build:
@@ -35,6 +41,8 @@ services:
       - .env-non-dev
     depends_on:
       - redis
+    networks:
+      - my_network
 
   flower:
     build:
@@ -43,5 +51,14 @@ services:
     command: ["/booking/docker/celery.sh", "flower"]
     env_file:
       - .env-non-dev
+    ports:
+      - 5555:8000
     depends_on:
       - redis
+      - celery
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
